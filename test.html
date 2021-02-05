@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let a = [1, 2, 3];
+      console.log(1, a);
+      let b = a; // 얕은복사
+
+      console.log(2, b);
+      // a = a.push(4); // 기존 배열에 추가 -> 얕은 복사
+      a = a.concat(4); // 새로운 공간 만들어서 추가하고 해당주소로 바꿈 -> 깊은 복사
+      console.log(3, a);
+      console.log(4, b);
+      console.log('============');
+
+      // 변수 불변해야하는데
+      // 일반 변수 : const
+      // 컬렉션(리스트) : const -> 깊은 복사함수
+      const c = [1, 2, 3];
+      const d = c;
+      b.push(4);
+      console.log(3, c);
+      console.log(4, d);
+
+      const f = [5, 6, 7];
+      const z = f.concat(); //깊은복사
+
+      console.log(3, f);
+      console.log(4, z);
+
+      f.push(100);
+      console.log(3, f);
+      console.log(4, z);
+
+      // 깊은 복사를 할 수 있는 함수
+      // - concat, filter, map, slice, 전개연산자(...문법)
+
+      const a1 = [1, 2, 3];
+      const b1 = [...a1];
+      console.log('1. ========스프레드 연산자');
+      b1.push(4);
+      console.log(`a1의 값 : ${a1}`); // 1, 2, 3
+      console.log(`b1의 값 : ${b1}`); // 1, 2, 3, 4
+      const c1 = [0, ...a1, 4];
+      console.log(`c1의 값 : ${c1}`); // 1, 2, 3, 4
+      console.log('2. ======== 추가하기');
+      const a2 = [1, 2, 3];
+      const b2 = a2.concat(4);
+      console.log(`a2의 값 : ${a2}`); // 1, 2, 3
+      console.log(`b2의 값 : ${b2}`); // 1, 2, 3, 4
+      console.log('3. ======== 걸러내기'); //bool을 return받는다. -> true만 걸러낸다. -> 보통 삭자할떄 사용함.
+      const a3 = [1, 2, 3];
+      const b3 = a3.filter((n) => {
+        return n !== 1;
+      });
+      console.log(`a3의 값 : ${a3}`); // 1, 2, 3
+      console.log(`b3의 값 : ${b3}`); // 1, 2, 3, 4
+      console.log('4. ======== 잘라내기');
+      const a4 = [1, 2, 3];
+      const b4 = a4.slice(0, 2);
+      console.log(`a4의 값 : ${a4}`); // 1, 2, 3
+      console.log(`b4의 값 : ${b4}`); // 1, 2
+      const c4 = [a4.slice(0, 2)];
+      console.log('5. ======== 반복하기');
+      const a5 = [1, 2, 3];
+      a5.forEach((n) => {
+        console.log(n);
+      });
+      const b5 = a5.map((n) => n);
+      console.log('b5의 값', b5);
+      console.log('6. ======== 수정하기');
+      const a6 = { id: 1, name: '홍길동' };
+      const b6 = { ...a6, name: '임꺽정' };
+      console.log(b6);
+      const users = [
+        { id: 1, name: 'a', phone: '2222' },
+        { id: 2, name: 'b', phone: '3333' },
+        { id: 3, name: 'c', phone: '4444' },
+      ];
+      const updateUserDto = { id: 2, name: 'd' };
+      const updateUsers = users.map((user) =>
+        user.id === updateUserDto.id ? { ...user, ...updateUserDto } : user,
+      );
+      console.log(updateUsers);
+    </script>
+  </body>
+</html>
